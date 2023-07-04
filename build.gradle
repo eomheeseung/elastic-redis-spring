@@ -31,12 +31,19 @@ dependencies {
 		exclude group: 'org.slf4j', module: 'slf4j-simple'
 	}*/
 
+	implementation 'org.elasticsearch.client:elasticsearch-rest-client:8.8.1'
+
+
 	implementation 'io.lettuce:lettuce-core:6.2.3.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'com.h2database:h2'
+
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+
 }
 
 tasks.named('test') {

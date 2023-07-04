@@ -1,26 +1,1 @@
-package example.tech_merge.controller;
-
-import example.tech_merge.service.MainService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@Slf4j
-@RequiredArgsConstructor
-public class MainController {
-    private final MainService mainService;
-
-    @GetMapping("redis/save")
-    public String save() {
-        try {
-            mainService.save();
-        } catch (IllegalStateException e) {
-            if (e.getMessage().equals("fail")) {
-                return "fail";
-            }
-        }
-        return "success";
-    }
-}
+package example.tech_merge.controller;import example.tech_merge.service.ServiceJPA;import example.tech_merge.service.ServiceTemplate;import lombok.RequiredArgsConstructor;import lombok.extern.slf4j.Slf4j;import org.json.simple.JSONObject;import org.springframework.web.bind.annotation.*;import java.util.HashMap;import java.util.concurrent.ConcurrentHashMap;@RestController@Slf4j@RequiredArgsConstructorpublic class MainController {    private final ServiceJPA serviceJPA;    private final ServiceTemplate serviceTemplate;    @GetMapping("redis/save1")    public String save() {        try {            serviceJPA.save();        } catch (IllegalStateException e) {            if (e.getMessage().equals("fail")) {                return "fail";            }        }        return "success";    }    @GetMapping("redis/find")    public String find() {        try {            serviceJPA.findMember("member");            return "ok";        } catch (RuntimeException e) {            return e.getMessage();        }    }    @PostMapping("redis/save2")    public String saveTemplate(@RequestBody ConcurrentHashMap<String, String> map) {        try {            serviceTemplate.save(map);            return "success";        } catch (RuntimeException e) {            return "fail";        }    }    @PostMapping("redis/find2")    public JSONObject findTemplate(@RequestBody HashMap<String, Object> map) {        String output = null;        JSONObject jsonObject = null;        try {            output = serviceTemplate.findMember(map.get("find").toString());            if (output.equals("fail")) {                throw new RuntimeException();            }            jsonObject = new JSONObject();            jsonObject.put(map.get("find").toString(), output);            return jsonObject;        } catch (RuntimeException e) {            jsonObject = new JSONObject();            jsonObject.put("error", e.getMessage());            return jsonObject;        }    }}
