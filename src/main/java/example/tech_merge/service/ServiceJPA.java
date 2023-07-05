@@ -1,12 +1,9 @@
 package example.tech_merge.service;
 
-import example.tech_merge.RedisConfig;
 import example.tech_merge.domain.Member;
 import example.tech_merge.repository.MemberRedisRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.client.RestClient;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +14,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 @Slf4j
 public class ServiceJPA implements InterfaceService{
-    @Value("${spring.data.redis.port}")
-    private int port;
-
-    @Value("${spring.data.redis.host}")
-    private String host;
-
     private final MemberRedisRepository memberRedisRepository;
-    private final RedisConfig redisConfig;
-
-    private final RestClient restClient;
 
     @Transactional
     public void save() {

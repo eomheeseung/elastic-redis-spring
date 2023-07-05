@@ -21,13 +21,19 @@ public class RedisConfig {
         return new LettuceConnectionFactory(redisProperties.getHost(), redisProperties.getPort());
     }
 
+    // TODO redisTemplate 공부
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(){
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<?, ?> redisTemplate(){
+        RedisTemplate<byte[], byte[]> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());    //key serializer
         redisTemplate.setValueSerializer(new StringRedisSerializer());  //value serializer
         return redisTemplate;
+    }
+
+    @Bean
+    public void test() {
+
     }
 
 }

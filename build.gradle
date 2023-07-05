@@ -33,7 +33,6 @@ dependencies {
 
 	implementation 'org.elasticsearch.client:elasticsearch-rest-client:8.8.1'
 
-
 	implementation 'io.lettuce:lettuce-core:6.2.3.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
@@ -41,6 +40,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'com.h2database:h2'
 
+	implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.15.0'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
 
