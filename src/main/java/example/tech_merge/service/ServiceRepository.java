@@ -13,7 +13,7 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ServiceJPA implements InterfaceService{
+public class ServiceRepository implements InterfaceService{
     private final MemberRedisRepository memberRedisRepository;
 
     @Transactional
