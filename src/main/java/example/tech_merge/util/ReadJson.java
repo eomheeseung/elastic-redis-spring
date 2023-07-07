@@ -1,4 +1,4 @@
-package example.tech_merge.service;
+package example.tech_merge.util;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
