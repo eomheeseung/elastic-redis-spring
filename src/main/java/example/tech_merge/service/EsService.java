@@ -70,23 +70,25 @@ public class EsService {
 
 
     public JSONObject searchQuest(String index) throws IOException {
-        SearchResponse searchResponse = search.searchQuest(index);
-        // 실제 데이터를 확인하기 위해서는 hits의 sources를 확인해야 하기 때문에..
+        JSONObject jsonObject = responseToJson(search.searchQuest(index));
+
+        return jsonObject;
+    }
+
+    public JSONObject searchWildCard(String index) throws IOException {
+        JSONObject jsonObject = responseToJson(search.searchWildCard(index));
+        return jsonObject;
+    }
+
+    private JSONObject responseToJson(SearchResponse search) throws IOException {
+        SearchResponse searchResponse = search;
         SearchHits hits = searchResponse.getHits();
-        // SearchHit[] 배열을 가져와서
         SearchHit[] searchHits = hits.getHits();
 
-        // return할 json 생성
         JSONObject jsonObject = new JSONObject();
-
-        // searchHits가 array이므로 jsonArray 생성
         JSONArray jsonArray = new JSONArray();
-        // jsonArray에 searchHits 담기
         jsonArray.addAll(Arrays.asList(searchHits));
-
-        // jsonObject에 jsonArray 담기
         jsonObject.put("hits", jsonArray);
-
         return jsonObject;
     }
 }

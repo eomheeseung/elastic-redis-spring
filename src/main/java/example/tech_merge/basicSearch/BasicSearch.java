@@ -37,10 +37,22 @@ public class BasicSearch {
     public SearchResponse searchQuest(String index) throws IOException {
         SearchRequest searchRequest = new SearchRequest(index);
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery()
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
                 .must(QueryBuilders.termQuery("title", "퀘스트"));
 
-        sourceBuilder.query(boolQuery);
+        sourceBuilder.query(boolQueryBuilder);
+        searchRequest.source(sourceBuilder);
+
+        return client.search(searchRequest, RequestOptions.DEFAULT);
+    }
+
+    public SearchResponse searchWildCard(String index) throws IOException {
+        SearchRequest searchRequest = new SearchRequest(index);
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
+                .must(QueryBuilders.wildcardQuery("title", "*스트"));
+
+        sourceBuilder.query(boolQueryBuilder);
         searchRequest.source(sourceBuilder);
 
         return client.search(searchRequest, RequestOptions.DEFAULT);
